@@ -18,7 +18,7 @@ if (process.env.NODE_ENV === 'production') {
 
 const port = process.env.PORT || 1212;
 const manifest = path.resolve(webpackPaths.dllPath, 'renderer.json');
-const requiredByDLLConfig = module.parent.filename.includes(
+const requiredByDLLConfig = module.parent?.filename.includes(
   'webpack.config.renderer.dev.dll'
 );
 
@@ -113,13 +113,13 @@ const configuration: webpack.Configuration = {
     ],
   },
   plugins: [
-    requiredByDLLConfig
-      ? null
-      : new webpack.DllReferencePlugin({
+    ...(requiredByDLLConfig
+      ? []
+      : [new webpack.DllReferencePlugin({
           context: webpackPaths.dllPath,
           manifest: require(manifest),
           sourceType: 'var',
-        }),
+        })]),
 
     new webpack.NoEmitOnErrorsPlugin(),
 
@@ -183,7 +183,10 @@ const configuration: webpack.Configuration = {
         env: process.env,
         stdio: 'inherit',
       })
-        .on('close', (code) => process.exit(code))
+        .on('close', (code) => {
+          const exitCode = code !== null ? code : 0;
+          process.exit(exitCode);
+        })
         .on('error', (spawnError) => console.error(spawnError));
     },
   },
