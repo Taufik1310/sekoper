@@ -1,1 +1,1 @@
-INSERT INTO cats (name, age) VALUES (@name, @age)
+INSERT INTO productTypes (name) VALUES (@name)

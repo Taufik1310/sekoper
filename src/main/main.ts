@@ -60,13 +60,11 @@ const insertStmt = db.prepare(insert);
 
 // Insert items
 const insertMany = db.transaction((cats) => {
-  for (const cat of cats) insertStmt.run(cat);
+  cats.forEach((cat: any) => {
+    insertStmt.run(cat);
+  });
 });
-insertMany([
-  { name: 'Joey', age: 2 },
-  { name: 'Sally', age: 4 },
-  { name: 'Junior', age: 1 },
-]);
+insertMany([{ name: 'Seragam' }, { name: 'Alat Tulis' }]);
 
 if (isDevelopment) {
   require('electron-debug')();
