@@ -5,4 +5,10 @@ const PaginationContext = createContext({
   onChange: (id: number) => {},
 });
 
-export default PaginationContext;
+const OffcanvasContext = createContext({
+  isOpen: false,
+  onOpen: (id: number) => {},
+  onClose: () => {},
+});
+
+export { PaginationContext, OffcanvasContext };

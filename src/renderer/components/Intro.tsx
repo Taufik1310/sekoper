@@ -1,15 +1,17 @@
 import { FaArrowRightLong } from 'react-icons/fa6';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { PaginationContext } from 'renderer/Context';
 import reactIcon from '../../../assets/icon.png';
 
 const Intro = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const { onChange } = useContext(PaginationContext);
 
   useEffect(() => {
     setTimeout(() => {
       setIsVisible(true);
     }, 200);
-  });
+  }, []);
 
   return (
     <div className="text-blue-50 mt-20 px-12 flex justify-between items-center">
@@ -30,6 +32,7 @@ const Intro = () => {
           produk dan layanan koperasi secara praktis
         </p>
         <button
+          onClick={() => onChange(1)}
           type="button"
           className="text-sm font-semibold h-6 w-36 flex items-center relative group"
         >

@@ -1,10 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
 import { FaHome, FaInfoCircle, FaShoppingBag } from 'react-icons/fa';
-import PaginationContext from 'renderer/Context';
+import { OffcanvasContext, PaginationContext } from 'renderer/Context';
 import reactIcon from '../../../assets/icon.png';
 
 const Navbar = () => {
   const { pageId, onChange } = useContext(PaginationContext);
+  const { isOpen } = useContext(OffcanvasContext);
   const navMenu = [
     {
       id: 0,
@@ -28,7 +29,11 @@ const Navbar = () => {
     setTimeout(() => {
       setIsVisible(true);
     }, 700);
-  });
+  }, []);
+
+  useEffect(() => {
+    setIsVisible(!isOpen);
+  }, [isOpen]);
 
   return (
     <nav
